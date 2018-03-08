@@ -1,36 +1,54 @@
 #include <iostream>
-#include <sstream>
 
 using namespace std;
 
 int main()
 {
-    int semilla, ingreso, cont, cantidad = 1, copiai; //Declaración de variables
-    string  serie; //Declara la variable serie como tipo string
-    stringstream  stream; //Declara la variable stream como tipo stringstream
-    cout << "Ingrese el numero: ";
-    cin >> ingreso; // EN ingreso guarda la captura
-    for(int i = 1; i < ingreso; i++){ //Declara e inicializa la variable i en 1, termina cuando i sea mayor o igual que ingreso e incrementa la variable i de uno en uno
-        stream.str(""); //Reinicia el valor de la variable strem
-        cont = 0; //En contador guarda el número 0
-        copiai = i; //EN copiai guarda el valor de i
-        while(copiai > 1){ //Mientras copiai sea mayor que 1, haga lo siguiente:
-            if(copiai%2==0){ //Si el residuo de la división copiai/2 es igual a 0, haga lo siguiente:
-                copiai /= 2; //EN copiai guarda el valor de la variable copiai/2
-                cont++; // cont + 1
+   int k,s=0,n,sw,aux;// K(numero que se ingresa) s(letra que acumula el numero menor que k) n(variable que reinicia k)
+                //sw(guarda el numero de elementos de cada serie)
+    cout<<"ingrese un numero: ";
+    cin>>k;
+    k=k-1;
+    n=k;
+    while (n!=1) {// ciclo regresivo de n
+        int i=0;
+        while(k!=1){// ciclo que hace la serie
+            if(k%2==0){//para k par
+                k=k/2;
+                i++;
+
             }
-            else{ //Si no se cumple la condición anterios, haga lo siguiente
-                copiai = (3*copiai)+1; //Copiai igual a 3 veces la variable copiai y al resultado de ese producto le suma 1
-                cont++; // cont + 1
-            }
-            stream << "," << copiai; // EN la variable stream concatena "," y el valor de copiai
+            else{   //para k impar
+                k=(k*3)+1;
+                i++;
+              }
         }
-        if(cont > cantidad){ //Si cont es mayor que cantidad, haga lo siguiente:
-            cantidad = cont; // a cantidad le asigna el valor de cont
-            semilla = i; // a semilla le asigna el valor de i
-            serie = stream.str(); //A serie le asigna el valor de la variable stream
-            serie[0] = ' '; //Cambia el valor de la posición 0 en la variable serie por un espacio
+       if(i>=sw){//condicional que busca la serie con el numero de elementos más larga
+            sw=i;
+            s=n+1;//variable que acumula el numero n menor que k que produce la serie la serie mas larga
+     aux=s;
         }
+       k=n;
+       n=n-1;//resta de n
+
     }
-    cout << "La serie mas larga es con la semilla: " << semilla << ":" << serie << ", teniendo " << cantidad << " terminos" << endl;
+         //Serie de collatz para la semilla que genera una serie mas larga
+        int i=0;
+        cout<<s<<"  ";
+       while(s!=1){
+        if(s%2==0){
+            s=s/2;
+            i++;
+            cout<<s<<"  ";
+        }
+        else{
+            s=(s*3)+1;
+            i++;
+            cout<<s<<"  ";
+
+        }
+
+
+    }
+        cout<<endl<<"La semilla menor que el numero que produce la serie mas larga es "<< aux <<endl<<" numeros de elementos: "<<i<<endl;
 }
